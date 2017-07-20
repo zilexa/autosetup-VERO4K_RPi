@@ -70,36 +70,24 @@ Disables the annoying blinking leds on the RPI3 and also the powerled on the RPI
 
 .
 ### REQUIRED USER-SPECIFIC SETTINGS
-MediaFolder='/media/HarddriveLabel' 
-
-Location of your connected USB drive. Connect it to your laptop to figure out it's name. Make sure you create the following folders: TVshows, Movies, Music, Pictures. The first two are required and case sensitive!
+Location of your connected USB drive. Connect it to your laptop to figure out it's name. Make sure you create the following folders: TVshows, Movies, Music, Pictures. The first two are required and case sensitive! 
+Example: My harddrive label when I connect it to a Windows laptop shows in My Computer as "MyDrive". MyDrive contains the mentioned folders. 
 
 
 #### DYNDNS url
-dyndnsurl="http://sync.afraid.org/u/your-url-id/"
-
 Want to access files/see download progress or manually download when not at home? you can create a nice domain (like zilexa.funstuff.com) otherwise you need to know your IP address given by your ISP. Go to https://freedns.afraid.org/, register for free and go to the  DynamicDNS. Create a nice domain name and then get the url by electing 'cron example'. 
 
 
 #### TRAKT username
-TraktUsername=mytraktusername
-
 For the system to know what series and movies you want to watch, you need a free account on trakt.tv. Go to trakt.tv, create an account, go to your profile, create a list called "TVshows". 
 Now search the tvshows you like to watch and add them to the "TVshows" list. 
 Search for movies and add them to the "watchlist".
 
 
 #### TRANSMISSION personal user and password: 
-TransmissionUser=PickYourUsernameForTransmissionWebUI
-TransmissionPw=PickYourPasswordForTransmissionWebUI
-
 By default user/password is osmc/osmc. That's not very safe. Fill in a desired user/password. This will then be set for you.
 
 
 #### SPOTIFY CONNECT
-SpotifyUser=YourSpotifyPremiumUsername
-SpotifyPw=YourSpotifyPremiumPassword
-SpotifyDeviceName=GiveYourDeviceAname
-
 Your device will show up in the Spotify app when you are connected to your home network. You can playback music on the device!
-Fill in your Spotify Premium username and password.
+Fill in your Spotify Premium username and password and choose a name for your device. This is how the device will appear on your phone or tablets Spotify app.
