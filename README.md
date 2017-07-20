@@ -3,6 +3,7 @@ Automatically installs and configures a Vero 4K or RPi device running OSMC or De
 
 **For the system to know what series and movies you want to watch, you need a free account on trakt.tv. Go to trakt.tv, create an account, go to your profile, create a list called "TVshows".  Now search the tvshows you like to watch and add them to the "TVshows" list. 
 Search for movies and add them to the "watchlist".**
+
 **VERY IMPORTANT: you need to mark the seasons or episodes you have already seen as "watched". Otherwise the system will think you want every season of every series (for example, NCIS has 14 seasons.. you might have seen season 1-12 already and the first episodes of season 13).
 This is probably a lot of work. I have used the app "Nachos" in the Google Play Store to do this, it's a lot easier. Took me half an hour which is more work than the steps below to install everything.**
 
