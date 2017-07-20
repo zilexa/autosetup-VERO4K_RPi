@@ -8,19 +8,19 @@ Requirements:
 
 **MAKE SURE YOU FOLLOW OSMC INSTALLATION INSTRUCTIONS FIRST: https://osmc.tv/download/**
 
-### Prepare your device:
+### PREPARE your device:
 1. On first boot, follow the install wizard on your TV.
 2. Go to MyOSMC > Apps and install Transmission.
 3. Go to MyOSMC > Services, enable SSH and Cron.
 4. Go back to the homescreen, find Settings and select System Information. Find the "IP Address" and write it down. For example 192.168.1.1
 
-### Get a laptop and login to your device via SSH:
+### Get a laptop and LOGIN TO YOUR DEVICE VIA SSH:
 1. Get the tool Putty and open it. 
 2. Enter your device IP address like this: osmc@192.168.1.1 and select SSH. Now hit connect.
 3. Enter the default password (osmc) and hit enter. 
 4. Change the password by typing: passwd and hit enter.
 
-### Ready! Now use autosetup:
+### USE AUTOSETUP.SH:
 1. Download autosetup.sh by copy pasting this command (you can paste by simply right-clicking in the black Putty window):
 wget https://raw.githubusercontent.com/zilexa/autosetup/master/autosetup.sh
 2. Now you can edit the file to select the features you need and fill in the required details. Run this command to edit the file:
@@ -31,6 +31,8 @@ sudo bash OSMCautosetup.sh
 
 Make sure you go through the features, by default everything except OpenVPN, SyncThing and Spotify are selected. If you don't need those, leave it. Do go through all user-specific settings, you need change them correctly.
 
+
+.
 ### FEATURES (1 = will be installed, 0= will be skipped):
 
 #### DynamicDNS=1 
@@ -50,7 +52,8 @@ the folders containing your media will be added as library sources. You can do t
 #### DisableLEDS=1 
 Disables the annoying blinking leds on the RPI3 and also the powerled on the RPI2 (powerled of RPI3 cannot be disabled). 
 
-### Required user-specific settings
+.
+### REQUIRED USER-SPECIFIC SETTINGS
 Location of your connected USB drive. Connect it to your laptop to figure out it's name. Make sure you create the following folders: TVshows, Movies, Music, Pictures. The first two are required and case sensitive!
 MediaFolder='/media/HarddriveLabel' 
 
