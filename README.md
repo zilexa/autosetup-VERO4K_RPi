@@ -81,6 +81,7 @@ dyndnsurl="http://sync.afraid.org/u/your-url-id/"
 For the system to know what series and movies you want to watch, you need a free account on trakt.tv. Go to trakt.tv, create an account, go to your profile, create a list called "TVshows". 
 Now search the tvshows you like to watch and add them to the "TVshows" list. 
 Search for movies and add them to the "watchlist".
+
 TraktUsername=mytraktusername
 
 #### TRANSMISSION personal user and password: 
