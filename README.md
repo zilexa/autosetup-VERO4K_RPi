@@ -97,6 +97,6 @@ SpotifyUser=YourSpotifyPremiumUsername
 SpotifyPw=YourSpotifyPremiumPassword
 SpotifyDeviceName=GiveYourDeviceAname
 Your device will show up in the Spotify app when you are connected to your home network. You can playback music on the device!
-Fill in your Spotify Premium username and password. 
+Fill in your Spotify Premium username and password.. 
 
 
