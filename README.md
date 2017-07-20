@@ -74,7 +74,7 @@ MediaFolder='/media/HarddriveLabel'
 
 #### DYNDNS url
 Want to access files/see download progress or manually download when not at home? you can create a nice domain (like zilexa.funstuff.com) otherwise you need to know your IP address given by your ISP. Go to https://freedns.afraid.org/, register for free and go to the  DynamicDNS. Create a nice domain name and then get the url by electing 'cron example'. 
-dyndnsurl="http://test.nl" 
+dyndnsurl="http://sync.afraid.org/u/your-url-id/"
 
 #### TRAKT username
 For the system to know what series and movies you want to watch, you need a free account on trakt.tv. Go to trakt.tv, create an account, go to your profile, create a list called "TVshows". 
