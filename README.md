@@ -49,7 +49,7 @@ Make sure you go through the features, by default everything except OpenVPN, Syn
 
 .
 ### FEATURES (1 = will be installed, 0= will be skipped):
-NOTE: every application installed will show up in MyOSMC > Apps. You can start/stop the apps from there (except OpenVPN). 
+NOTE: every application installed will show up in MyOSMC > Apps. You can start/stop the apps from there using your TV remote. 
 
 #### DynamicDNS=1 
 Schedules your Dynamic DNS update URL to be called every 4 hrs.
