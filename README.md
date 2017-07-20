@@ -1,5 +1,6 @@
 # autosetup
 Automatically installs and configures a Vero 4K or RasberryPi device running OSMC or Debian to get a "Netflix-like" experience!
+It uses OSMC with Kodi for playback. No streaming addons are being used. 
 
 **For the system to know what series and movies you want to watch, you need a free account on trakt.tv. Go to trakt.tv, create an account, go to your profile, create a list called "TVshows".  Now search the tvshows you like to watch and add them to the "TVshows" list. 
 For movies, Search the movie and add them to your "watchlist", not to your TVshows list.**
