@@ -36,13 +36,13 @@ Make sure you go through the features, by default everything except OpenVPN, Syn
 #### DynamicDNS=1 
 Schedules your Dynamic DNS update URL to be called every 4 hrs.
 #### Transmission=1 
-Configures Transmission, needs to be installed first via MyOSMC!
-#### OpenVPN=0 
-Simply installs OpenVPN, nothing else.
+Configures Transmission, the tool that will actually download stuff. Needs to be installed first via MyOSMC!
 #### FlexGet=1 
-Installs Flexget and downloads my config https://github.com/zilexa/flexget_config
+This is the magic and complex tool that will check your Trakt account, find series, season packs, episodes and movies, get them for you in the right quality, organise them neatly on your USB drive and triggers Kodi to scan all files. Setting this to 1 will install Flexget and required components and it will install this Flexget config https://github.com/zilexa/flexget_config
 #### Spotify=0
 Installs Spotify Connect (Premium users only) when selected, you only need to add your key to the folder.
+#### OpenVPN=0 
+Simply installs OpenVPN, nothing else.
 #### SyncThing=0 
 installs SyncThing, nothing else. 
 #### AddMediaToKodi=1 
@@ -64,8 +64,8 @@ Now search the tvshows you like to watch and add them to the "TVshows" list.
 Search for movies and add them to the "watchlist".
 TraktUsername=mytraktusername
 
-#### TRANSMISSION: 
-Fill in a desired user/password. This will be configured for you. Transmission is the tool to download stuff. Default is osmc/osmc.
+#### TRANSMISSION personal user and password: 
+By default user/password is osmc/osmc. That's not very safe. Fill in a desired user/password. This will then be set for you.
 TransmissionUser=PickYourUsernameForTransmissionWebUI
 TransmissionPw=PickYourPasswordForTransmissionWebUI
 
