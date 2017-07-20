@@ -17,7 +17,7 @@ Requirements:
 **MAKE SURE YOU FOLLOW OSMC INSTALLATION INSTRUCTIONS FIRST: https://osmc.tv/download/**
 
 ### PREPARE your device:
-1. On first boot, follow the install wizard on your TV.
+1. On first boot, follow the install wizard on your TV. Use your remote or the Yatse app on your phone (recommended! Find it in Play Store).
 2. Go to MyOSMC > Apps and install Transmission.
 3. Go to MyOSMC > Services, enable SSH and Cron.
 4. Go back to the homescreen, find Settings and select System Information. Find the "IP Address" and write it down. For example 192.168.1.1
