@@ -44,9 +44,9 @@ This is the magic and complex tool that will check your Trakt account, find seri
 #### Spotify=0
 Installs Spotify Connect (Premium users only) when selected, you only need to add your key to the folder.
 #### OpenVPN=0 
-Simply installs OpenVPN, nothing else.
+Simply installs OpenVPN, nothing else. I would like to configure it in such a way, Flexget & Transmission will always run via VPN, all other things will have direct access to the internet. But this is too complex so it just installs OpenVPN. You can configure it yourself.
 #### SyncThing=0 
-installs SyncThing, nothing else. 
+installs SyncThing, nothing else. Nothing will be configured. Handy as personal cloud to sync your phones photos to your device or autobackup documents. https://syncthing.net/. 
 #### AddMediaToKodi=1 
 the folders containing your media will be added as library sources. You can do this in Kodi but now you don't have to, just run a library scan. 
 #### DisableLEDS=1 
