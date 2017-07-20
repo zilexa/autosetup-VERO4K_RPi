@@ -75,6 +75,7 @@ MediaFolder='/media/HarddriveLabel'
 
 #### DYNDNS url
 Want to access files/see download progress or manually download when not at home? you can create a nice domain (like zilexa.funstuff.com) otherwise you need to know your IP address given by your ISP. Go to https://freedns.afraid.org/, register for free and go to the  DynamicDNS. Create a nice domain name and then get the url by electing 'cron example'. 
+
 dyndnsurl="http://sync.afraid.org/u/your-url-id/"
 
 #### TRAKT username
@@ -91,6 +92,7 @@ TransmissionPw=PickYourPasswordForTransmissionWebUI
 #### SPOTIFY CONNECT
 Your device will show up in the Spotify app when you are connected to your home network. You can playback music on the device!
 Fill in your Spotify Premium username and password. 
+
 SpotifyUser=YourSpotifyPremiumUsername
 SpotifyPw=YourSpotifyPremiumPassword
 SpotifyDeviceName=GiveYourDeviceAname
