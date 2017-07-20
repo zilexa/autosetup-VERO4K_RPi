@@ -11,24 +11,24 @@
 
 # Please select which tasks to perform and fill in the user-specific settings.
 # Tasks to perform
-DynamicDNS=0 #schedules your Dynamic DNS update URL to be called every 4 hrs.
-Transmission=0 #configures Transmission, needs to be installed first via MyOSMC
-OpenVPN=0 #simply installs OpenVPN, nothing else
+DynamicDNS=1 #schedules your Dynamic DNS update URL to be called every 4 hrs.
+Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
 FlexGet=1 #installs Flexget
+OpenVPN=0 #simply installs OpenVPN, nothing else
 Spotify=0 # installs Spotify Connect (Premium users only) when selected, you only need to add your key to the folder and reboot.
 SyncThing=0 # installs SyncThing
-AddMediaToKodi=0 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
-DisableLEDS=0 #RPI2 or RPI3 only
-#DisableBuildinBluetooth=1 RPI3 only, will be added, builtin BT has issues with audiostreaming, disable if you tend to use an external dongle.
+AddMediaToKodi=1 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
+DisableLEDS=1 #RPI2 or RPI3 only
 
 #User-specific settings
-MediaFolder='media/shanta'
-dnsurl="http://sync.afraid.org/u/LgA4pyXMUmncFm7vPtnfq723/"
-TransmissionUser=ShantiPi
-TransmissionPw=Devina!84
+MediaFolder='media/ChilleTV'
+dyndnsurl="http://sync.afraid.org/u/your-url-id/"
+TraktUsername=yourtraktusername
+TransmissionUser=desiredusername
+TransmissionPw=desiredpw
 SpotifyUser=YourSpotifyPremiumUsername
 SpotifyPw=YourSpotifyPremiumPassword
-SpotifyDeviceName=GiveYourDeviceAname
+SpotifyDeviceName=ChilleTV # pick a name, it will show up in the Spotify app on your phone or tablet.
 
 
 # Disable LEDs on RPi2 or RPi3 (Power and Activity LEDS, network leds cannot be disabled)
@@ -93,7 +93,7 @@ sudo apt-get update
 
 if [ "$DynamicDNS" = "1" ] ; then
 # Reach your device via an easy URL when you are not at home (via freedns.afraid.org)
-line="0 */4 * * * curl -s $dnsurl"
+line="0 */4 * * * curl -s $dyndnsurl"
 (crontab -u osmc -l; echo "$line" ) | crontab -u osmc -
 ECHO "DynamicDNS has been set"
 fi
@@ -130,7 +130,7 @@ cd spotify-connect-web-chroot
 curl http://spotify-connect-web.s3-website.eu-central-1.amazonaws.com/spotify-connect-web.tar.gz | sudo tar xz
 
 # Run Spotify Connect at startup
-sudo bash -c 'cat > /lib/systemd/system/scs.service' << EOF
+sudo bash -c 'cat > /lib/systemd/system/scs1.service' << EOF
 [Unit]
 Description=Spotify Connect
 After=network-online.target
@@ -149,12 +149,14 @@ WantedBy=multi-user.target
 
 EOF
 
-sudo chmod 755 /lib/systemd/system/scs.service
-sudo chmod a+u /lib/systemd/system/scs.service
+sudo chmod 755 /lib/systemd/system/scs1.service
+sudo chmod a+u /lib/systemd/system/scs1.service
 sudo systemctl daemon-reload
-sudo systemctl enable scs.service
-sudo systemctl start scs.service
-sudo echo -e "scs\scs.service" > /etc/osmc/apps.d/spotify-1
+sudo systemctl enable scs1.service
+sudo systemctl start scs1.service
+sudo -s
+echo -e "scs1\scs1.service" > /etc/osmc/apps.d/spotify-1
+su - osmc
 fi
 
 
@@ -162,7 +164,7 @@ fi
 if [ "$SycnThing" = "1" ] ; then
 sudo curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb http://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
-sudo apt-get install syncthing -y
+sudo apt-get install -y syncthing
 
 # Run SyncThing at startup
 sudo bash -c 'cat > /lib/systemd/system/syncthing.service' << EOF
@@ -191,15 +193,17 @@ sudo chmod 755 /lib/systemd/system/syncthing.service
 sudo chmod a+u /lib/systemd/system/syncthing.service
 sudo systemctl daemon-reload
 sudo systemctl enable syncthing.service
-sudo echo -e "syncthing\syncthing.service" > /etc/osmc/apps.d/syncthing
+sudo -s
+echo -e "syncthing\syncthing.service" > /etc/osmc/apps.d/syncthing
+su - osmc
 fi
 
 
-# install Flexget with magnet, subtitles and transmission support
+# install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
-sudo apt-get install python-libtorrent
-sudo apt-get install python-pip
+sudo apt-get install -y python-libtorrent
+sudo apt-get install -y python-pip
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
 virtualenv --system-site-packages ~/flexget/
@@ -209,7 +213,13 @@ source ~/flexget/bin/activate
 sudo pip install subliminal>=2.0
 sudo pip install transmissionrpc
 sudo pip install transmissionrpc --upgrade
-
+wget https://gist.githubusercontent.com/zilexa/7d726e5b995a3f5248b0b0d464315481/raw/config.yml
+wget https://gist.githubusercontent.com/zilexa/7d726e5b995a3f5248b0b0d464315481/raw/secrets.yml
+wget https://gist.githubusercontent.com/zilexa/7d726e5b995a3f5248b0b0d464315481/raw/series.yml
+sed -i "s/TraktUsername/$TraktUsername/g" /home/osmc/flexget/secrets.yml
+sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
+sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
+sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' /home/osmc/flexget/secrets.yml
 fi
 
 
@@ -235,5 +245,8 @@ EOF
 
 sudo chmod 755 /lib/systemd/system/flexget.service
 sudo systemctl enable flexget
-sudo echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
+sudo -s
+echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
+exit
+/home/osmc/flexget/bin/flexget trakt auth $TraktUsername
 fi
