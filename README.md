@@ -11,7 +11,7 @@ This is probably a lot of work. I have used the app "Nachos" in the Google Play 
 Requirements:
 - A VERO 4K device or Raspberry Pi 3 device, HDMI cable, network cable, 16GB or 32GB fast microSD card for the device.
 - a USB harddrive, connected to your device. 
-- If you use a RPi3 instead of a Vero 4K, I highly recommend installing OSMC.tv on your RPi3, but it should work on most Debian based systems. 
+- If you use a RPi3 instead of a Vero 4K, I highly recommend installing OSMC.tv on your RPi3. This script has been tested on RPI3 devices only. 
 
 
 **MAKE SURE YOU FOLLOW OSMC INSTALLATION INSTRUCTIONS FIRST: https://osmc.tv/download/**
