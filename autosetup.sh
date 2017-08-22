@@ -103,8 +103,7 @@ fi
 if [ "$Transmission" = "1" ] ; then
 sudo service transmission stop
 cd /home/osmc/.config/transmission-daemon
-curl https://gist.githubusercontent.com/zilexa/b8193751ce4011154ed11fc0f597f73b/raw > settings.json
-curl https://gist.githubusercontent.com/zilexa/e82211bbfe41de4274b44d0b48b14642/raw > scantokodi.sh
+curl https://rawgit.com/zilexa/transmission/master/settings.json > settings.json
 sed -i "s/osmc/$TransmissionUser/g" /home/osmc/.config/transmission-daemon/settings.json
 sed -i "s/OSMC/$TransmissionPw/g" /home/osmc/.config/transmission-daemon/settings.json
 sed -i 's|MediaFolder|'$MediaFolder'|g' /home/osmc/.config/transmission-daemon/settings.json
@@ -213,9 +212,8 @@ source ~/flexget/bin/activate
 sudo pip install subliminal>=2.0
 sudo pip install transmissionrpc
 sudo pip install transmissionrpc --upgrade
-wget https://gist.githubusercontent.com/zilexa/7d726e5b995a3f5248b0b0d464315481/raw/config.yml
-wget https://gist.githubusercontent.com/zilexa/7d726e5b995a3f5248b0b0d464315481/raw/secrets.yml
-wget https://gist.githubusercontent.com/zilexa/7d726e5b995a3f5248b0b0d464315481/raw/series.yml
+wget https://rawgit.com/zilexa/flexget_config/master/config.yml
+wget https://rawgit.com/zilexa/flexget_config/master/secrets.yml
 sed -i "s/TraktUsername/$TraktUsername/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
