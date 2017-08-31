@@ -35,7 +35,7 @@ Requirements:
 sudo nano autosetup.sh
 (save the file with CTRL+O, exit the editor with CTRL+X)
 3. Now run the script:
-sudo bash OSMCautosetup.sh
+`sudo bash OSMCautosetup.sh`
 4. A lot will happen now, just leave it be. When it's done, all that's left is for you to authorize the device to access your trakt account. This process will be triggered, just follow the instructions: go to trakt.tv/activate and fill in the temporary password. If you are too late, you can trigger this process yourself by running the following command:
 /home/osmc/flexget/bin/flexget trakt auth yourtraktusername
 5. Now you can enable Flexget with this command:
