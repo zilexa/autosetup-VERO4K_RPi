@@ -139,6 +139,7 @@ fi
 
 # install Spotify Connect by installing Raspotify, which is a wrapper for LibreSpot
 if [ "$Spotify" = "1" ] ; then
+sudo apt-get -y install apt-transport-https
 curl -sSL https://dtcooper.github.io/raspotify/key.asc | sudo apt-key add -v -
 echo 'deb https://dtcooper.github.io/raspotify jessie main' | sudo tee /etc/apt/sources.list.d/raspotify.list
 sudo apt-get update
