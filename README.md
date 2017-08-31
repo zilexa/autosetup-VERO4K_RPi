@@ -30,7 +30,7 @@ Requirements:
 
 ### USE AUTOSETUP.SH:
 1. Download autosetup.sh by copy pasting this command (you can paste by simply right-clicking in the black Putty window):
-'wget https://rawgit.com/zilexa/autosetup/master/autosetup.sh'
+`wget https://rawgit.com/zilexa/autosetup/master/autosetup.sh`
 2. See the FEATURES and REQUIRED USER-SPECIFIC SETTINGS below. Edit the file to select the features you need and fill in the required details. Run this command to edit the file:
 sudo nano autosetup.sh
 (save the file with CTRL+O, exit the editor with CTRL+X)
@@ -58,7 +58,7 @@ Configures Transmission, the tool that will actually download stuff. Needs to be
 #### FlexGet=1 
 This is the magic and complex tool that will check your Trakt account, find series, season packs, episodes and movies, get them for you in the right quality, organise them neatly on your USB drive and triggers Kodi to scan all files. Setting this to 1 will install Flexget and required components and it will install this Flexget config https://github.com/zilexa/flexget_config
 #### Spotify=0
-Installs Spotify Connect (Premium users only) when selected, you only need to add your key to the folder.
+Installs Spotify Connect (Premium users only). This allows you to use Spotify on your phone/pc but playback on this device!
 #### OpenVPN=0 
 Simply installs OpenVPN, nothing else. I would like to configure it in such a way, Flexget & Transmission will always run via VPN, all other things will have direct access to the internet. But this is too complex so it just installs OpenVPN. You can configure it yourself.
 #### SyncThing=0 
