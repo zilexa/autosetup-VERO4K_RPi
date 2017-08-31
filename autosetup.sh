@@ -146,8 +146,8 @@ sudo apt-get update
 sudo apt-get -y install raspotify
 
 # Edit the configuration file to set quality to highest (Spotify 320 = Ogg Vorbis -q6) and change the device name
-sudo sed -i 's/#BITRATE="160"/BITRATE="320"/g' /etc/default/raspotify
-sudo sed -i 's/#DEVICE_NAME="raspotify"/DEVICE_NAME="$SpotifyDeviceName"/g' /etc/default/raspotify
+sudo sed -i "s/#BITRATE=\"160\"/BITRATE=\"320\"/g" /etc/default/raspotify
+sudo sed -i "s/#DEVICE_NAME=\"raspotify\"/DEVICE_NAME=\"$SpotifyDeviceName\"/g" /etc/default/raspotify
 sudo systemctl restart raspotify
 
 # Add the service to MyOSMC so you can easily start/stop it in Kodi with your TV remote
