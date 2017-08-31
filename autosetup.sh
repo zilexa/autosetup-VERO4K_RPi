@@ -15,7 +15,7 @@ DynamicDNS=1 #schedules your Dynamic DNS update URL to be called every 4 hrs.
 Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
 FlexGet=1 #installs Flexget
 OpenVPN=0 #simply installs OpenVPN, nothing else
-Spotify=0 # installs Spotify Connect (Premium users only) when selected, you only need to add your key to the folder and reboot.
+Spotify=0 # installs Spotify Connect (Premium users only)..
 SyncThing=0 # installs SyncThing
 AddMediaToKodi=1 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
 DisableLEDS=1 #RPI2 or RPI3 only
@@ -26,9 +26,7 @@ dyndnsurl="http://sync.afraid.org/u/your-url-id/"
 TraktUsername=yourtraktusername
 TransmissionUser=desiredusername
 TransmissionPw=desiredpw
-SpotifyUser=YourSpotifyPremiumUsername
-SpotifyPw=YourSpotifyPremiumPassword
-SpotifyDeviceName=ChilleTV # pick a name, it will show up in the Spotify app on your phone or tablet.
+SpotifyDeviceName=YourDeviceName # pick a name, it will show up in the Spotify app on your phone or computer.
 
 
 # Disable LEDs on RPi2 or RPi3 (Power and Activity LEDS, network leds cannot be disabled)
@@ -128,34 +126,21 @@ mkdir -p spotify-connect-web-chroot
 cd spotify-connect-web-chroot
 curl http://spotify-connect-web.s3-website.eu-central-1.amazonaws.com/spotify-connect-web.tar.gz | sudo tar xz
 
-# Run Spotify Connect at startup
-sudo bash -c 'cat > /lib/systemd/system/scs1.service' << EOF
-[Unit]
-Description=Spotify Connect
-After=network-online.target
+# install Spotify Connect by installing Raspotify, which is a wrapper for LibreSpot
+if [ "$Spotify" = "1" ] ; then
+curl -sSL https://dtcooper.github.io/raspotify/key.asc | sudo apt-key add -v -
+echo 'deb https://dtcooper.github.io/raspotify jessie main' | sudo tee /etc/apt/sources.list.d/raspotify.list
+sudo apt-get update
+sudo apt-get -y install raspotify
 
-[Service]
-Type=idle
-User=osmc
-ExecStart=/home/osmc/spotify-connect-web.sh --username $SpotifyUser --password $SpotifyPw --bitrate 320 --name $SpotifyDeviceName
-Restart=always
-RestartSec=10
-StartLimitInterval=30
-StartLimitBurst=20
+# Edit the configuration file to set quality to highest (Spotify 320 = Ogg Vorbis -q6) and change the device name
+sudo sed -i 's/#BITRATE="160"/BITRATE="320"/g' /etc/default/raspotify
+sudo sed -i 's/#DEVICE_NAME="raspotify"/DEVICE_NAME="$SpotifyDeviceName"/g' /etc/default/raspotify
 
-[Install]
-WantedBy=multi-user.target
-
-EOF
-
-sudo chmod 755 /lib/systemd/system/scs1.service
-sudo chmod a+u /lib/systemd/system/scs1.service
-sudo systemctl daemon-reload
-sudo systemctl enable scs1.service
-sudo systemctl start scs1.service
+sudo systemctl restart raspotify
 sudo -s
-echo -e "scs1\scs1.service" > /etc/osmc/apps.d/spotify-1
-su - osmc
+echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
+exit
 fi
 
 
@@ -186,7 +171,6 @@ RestartForceExitStatus=3 4
 WantedBy=multi-user.target
 
 EOF
-
 
 sudo chmod 755 /lib/systemd/system/syncthing.service
 sudo chmod a+u /lib/systemd/system/syncthing.service
