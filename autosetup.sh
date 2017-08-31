@@ -9,7 +9,12 @@
 # 4) Install SyncThing which allows you to sync files (Photos) from devices like phones and
 # computers (documents backup) automatically to this device, a private cloud storage.
 
-# Please select which tasks to perform and fill in the user-specific settings.
+##########################################
+##                                      ##
+##  CHOOSE APPS AND ACTIONS TO PERFORM  ##
+##                                      ##
+##########################################
+# Please select which tasks to perform and don't forget to fill in the user-specific settings in the second part.
 # Tasks to perform
 DynamicDNS=1 #schedules your Dynamic DNS update URL to be called every 4 hrs.
 Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
@@ -20,6 +25,12 @@ SyncThing=0 # installs SyncThing
 AddMediaToKodi=1 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
 DisableLEDS=1 #RPI2 or RPI3 only
 
+
+##########################################
+##                                      ##
+##  PERSONALISE YOUR CONFIGURATION      ##
+##                                      ##
+##########################################
 #User-specific settings
 MediaFolder='media/ChilleTV'
 dyndnsurl="http://sync.afraid.org/u/your-url-id/"
@@ -29,6 +40,11 @@ TransmissionPw=desiredpw
 SpotifyDeviceName=YourDeviceName # pick a name, it will show up in the Spotify app on your phone or computer.
 
 
+##########################################
+##                TASKS                 ##
+##  DO NOT TOUCH BELOW THIS LINE!       ##
+##                                      ##
+##########################################
 # Disable LEDs on RPi2 or RPi3 (Power and Activity LEDS, network leds cannot be disabled)
 if [ "DisableLEDS" = "1" ] ; then
 sudo bash -c 'cat >> /home/osmc/.kodi/userdata/sources.xml' << EOF
@@ -40,6 +56,8 @@ dtparam=pwr_led_trigger=none
 dtparam=pwr_led_activelow=off
 EOF
 fi
+
+
 
 # Add media to Kodi
 if [ "$AddMediaToKodi" = "1" ] ; then
@@ -85,9 +103,6 @@ EOF
 fi
 
 
-# update system (required before installing anything)
-sudo apt-get update
-
 
 if [ "$DynamicDNS" = "1" ] ; then
 # Reach your device via an easy URL when you are not at home (via freedns.afraid.org)
@@ -95,6 +110,7 @@ line="0 */4 * * * curl -s $dyndnsurl"
 (crontab -u osmc -l; echo "$line" ) | crontab -u osmc -
 ECHO "DynamicDNS has been set"
 fi
+
 
 
 # Configure Transmission and set it to send finished downloads to Kodi library
@@ -112,19 +128,14 @@ sudo service transmission start
 fi
 
 
+
 # install OpenVPN
 if [ "$OpenVPN" = "1" ] ; then
+sudo apt-get update
 sudo apt-get --yes --force-yes install openvpn
 fi
 
 
-# install Spotify Connect
-if [ "$Spotify" = "1" ] ; then
-sudo curl -O http://spotify-connect-web.s3-website.eu-central-1.amazonaws.com/spotify-connect-web.sh
-sudo chmod u+x spotify-connect-web.sh
-mkdir -p spotify-connect-web-chroot
-cd spotify-connect-web-chroot
-curl http://spotify-connect-web.s3-website.eu-central-1.amazonaws.com/spotify-connect-web.tar.gz | sudo tar xz
 
 # install Spotify Connect by installing Raspotify, which is a wrapper for LibreSpot
 if [ "$Spotify" = "1" ] ; then
@@ -136,12 +147,14 @@ sudo apt-get -y install raspotify
 # Edit the configuration file to set quality to highest (Spotify 320 = Ogg Vorbis -q6) and change the device name
 sudo sed -i 's/#BITRATE="160"/BITRATE="320"/g' /etc/default/raspotify
 sudo sed -i 's/#DEVICE_NAME="raspotify"/DEVICE_NAME="$SpotifyDeviceName"/g' /etc/default/raspotify
-
 sudo systemctl restart raspotify
+
+# Add the service to MyOSMC so you can easily start/stop it in Kodi with your TV remote
 sudo -s
 echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
 exit
 fi
+
 
 
 # install SyncThing
@@ -182,6 +195,7 @@ su - osmc
 fi
 
 
+
 # install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
@@ -203,7 +217,6 @@ sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
 sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' /home/osmc/flexget/secrets.yml
 fi
-
 
 # Run FLEXGET at startup
 if [ "$FlexGet" = "1" ] ; then
