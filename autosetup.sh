@@ -143,6 +143,7 @@ sudo apt-get -y install apt-transport-https
 curl -sSL https://dtcooper.github.io/raspotify/key.asc | sudo apt-key add -v -
 echo 'deb https://dtcooper.github.io/raspotify jessie main' | sudo tee /etc/apt/sources.list.d/raspotify.list
 sudo apt-get update
+sudo apt-get install apt-transport-https
 sudo apt-get -y install raspotify
 
 # Edit the configuration file to set quality to highest (Spotify 320 = Ogg Vorbis -q6) and change the device name
