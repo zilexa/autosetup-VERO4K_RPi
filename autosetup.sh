@@ -19,9 +19,9 @@
 DynamicDNS=1 #schedules your Dynamic DNS update URL to be called every 4 hrs.
 Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
 FlexGet=1 #installs Flexget
-OpenVPN=0 #simply installs OpenVPN, nothing else
+OpenVPN=1 #simply installs OpenVPN, nothing else
 Spotify=0 # installs Spotify Connect (Premium users only)..
-SyncThing=0 # installs SyncThing
+SyncThing=1 # installs SyncThing
 AddMediaToKodi=1 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
 DisableLEDS=1 #RPI2 or RPI3 only
 
