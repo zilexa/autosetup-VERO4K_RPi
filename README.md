@@ -32,7 +32,7 @@ Requirements:
 1. Download autosetup.sh by copy pasting this command (you can paste by simply right-clicking in the black Putty window):
 `wget https://rawgit.com/zilexa/autosetup/master/autosetup.sh`
 2. See the FEATURES and REQUIRED USER-SPECIFIC SETTINGS below. Edit the file to select the features you need and fill in the required details. Run this command to edit the file:
-sudo nano autosetup.sh
+`sudo nano autosetup.sh`
 (save the file with CTRL+O, exit the editor with CTRL+X)
 3. Now run the script:
 `sudo bash autosetup.sh`
