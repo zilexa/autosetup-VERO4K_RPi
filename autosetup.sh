@@ -210,9 +210,9 @@ virtualenv --system-site-packages -p python3.4 ~/flexget/
 cd ~/flexget/
 bin/pip install flexget
 source ~/flexget/bin/activate
-sudo pip install subliminal>=2.0
-sudo pip install transmissionrpc
-sudo pip install transmissionrpc --upgrade
+pip install subliminal>=2.0
+pip install transmissionrpc
+pip install transmissionrpc --upgrade
 wget https://rawgit.com/tarzasai/.flexget/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
 wget https://rawgit.com/zilexa/flexget_config/master/config.yml
 wget https://rawgit.com/zilexa/flexget_config/master/secrets.yml
