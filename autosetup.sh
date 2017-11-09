@@ -206,13 +206,14 @@ sudo apt-get install -y python-libtorrent
 sudo apt-get install -y python-pip
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
-virtualenv --system-site-packages ~/flexget/
+virtualenv --system-site-packages -p python3.4 ~/flexget/
 cd ~/flexget/
-sudo bin/pip install flexget
+bin/pip install flexget
 source ~/flexget/bin/activate
 sudo pip install subliminal>=2.0
 sudo pip install transmissionrpc
 sudo pip install transmissionrpc --upgrade
+wget https://rawgit.com/tarzasai/.flexget/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
 wget https://rawgit.com/zilexa/flexget_config/master/config.yml
 wget https://rawgit.com/zilexa/flexget_config/master/secrets.yml
 sed -i "s/TraktUsername/$TraktUsername/g" /home/osmc/flexget/secrets.yml
