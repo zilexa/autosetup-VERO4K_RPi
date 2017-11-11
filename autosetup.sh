@@ -202,6 +202,7 @@ fi
 # install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
+sudo apt-get install python3
 sudo apt-get install -y python-libtorrent
 sudo apt-get install -y python-pip
 sudo pip install --upgrade setuptools
