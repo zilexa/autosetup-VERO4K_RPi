@@ -20,7 +20,7 @@ DynamicDNS=1 #schedules your Dynamic DNS update URL to be called every 4 hrs.
 Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
 FlexGet=1 #installs Flexget
 OpenVPN=1 #simply installs OpenVPN, nothing else
-Spotify=0 # installs Spotify Connect (Premium users only)..
+Spotify=0 # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
 SyncThing=1 # installs SyncThing
 AddMediaToKodi=1 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
 DisableLEDS=1 #RPI2 or RPI3 only
@@ -203,11 +203,11 @@ fi
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
 sudo apt-get install python3
-sudo apt-get install -y python-libtorrent
+sudo apt-get install -y python3-libtorrent
 sudo apt-get install -y python-pip
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
-virtualenv --system-site-packages -p python3.4 ~/flexget/
+virtualenv --system-site-packages -p python3 ~/flexget/
 cd ~/flexget/
 bin/pip install flexget
 source ~/flexget/bin/activate
