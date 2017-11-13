@@ -235,7 +235,7 @@ Type=simple
 User=osmc
 UMask=000
 WorkingDirectory=/home/osmc/flexget
-ExecStart=/home/osmc/flexget/bin/flexget daemon start
+ExecStart=/home/osmc/flexget/bin/flexget daemon start --autoreload-config
 ExecStop=/home/osmc/flexget/bin/flexget daemon stop
 ExecReload=/home/osmc/flexget/bin/flexget daemon reload
 
