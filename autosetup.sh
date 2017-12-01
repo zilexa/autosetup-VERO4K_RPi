@@ -204,7 +204,7 @@ if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
 sudo apt-get install python3
 sudo apt-get install -y python3-libtorrent
-sudo apt-get install -y python-pip
+sudo python3 get-pip.py
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
 virtualenv --system-site-packages -p python3 ~/flexget/
