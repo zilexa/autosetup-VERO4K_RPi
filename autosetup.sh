@@ -117,7 +117,7 @@ fi
 if [ "$Transmission" = "1" ] ; then
 sudo service transmission stop
 cd /home/osmc/.config/transmission-daemon
-curl https://rawgit.com/zilexa/transmission/master/settings.json > settings.json
+curl -O https://rawgit.com/zilexa/transmission/master/settings.json
 sed -i "s/osmc/$TransmissionUser/g" /home/osmc/.config/transmission-daemon/settings.json
 sed -i "s/OSMC/$TransmissionPw/g" /home/osmc/.config/transmission-daemon/settings.json
 sed -i 's|MediaFolder|'$MediaFolder'|g' /home/osmc/.config/transmission-daemon/settings.json
@@ -215,8 +215,8 @@ pip install subliminal>=2.0
 pip install transmissionrpc
 pip install transmissionrpc --upgrade
 wget https://rawgit.com/tarzasai/.flexget/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
-wget https://rawgit.com/zilexa/flexget_config/master/config.yml
-wget https://rawgit.com/zilexa/flexget_config/master/secrets.yml
+curl -O https://rawgit.com/zilexa/flexget_config/master/config.yml
+curl -O https://rawgit.com/zilexa/flexget_config/master/secrets.yml
 sed -i "s/TraktUsername/$TraktUsername/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
