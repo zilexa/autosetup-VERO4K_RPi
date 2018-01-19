@@ -17,13 +17,12 @@
 ##########################################
 # Please select which tasks to perform and don't forget to fill in the user-specific settings in the second part.
 # Tasks to perform
-DynamicDNS=1 #schedules your Dynamic DNS update URL to be called every 4 hrs.
+DynamicDNS=0 #schedules your Dynamic DNS update URL to be called every 4 hrs.
 Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
 FlexGet=1 #installs Flexget
 OpenVPN=1 #simply installs OpenVPN, nothing else
 Spotify=0 # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
 SyncThing=1 # installs SyncThing
-AddMediaToKodi=1 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
 DisableLEDS=1 #RPI2 or RPI3 only
 
 
@@ -137,26 +136,21 @@ fi
 
 # install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
-cd /home/osmc
-sudo apt-get install python3
-sudo apt-get install -y python3-libtorrent
-sudo python3 get-pip.py
-sudo pip install --upgrade setuptools
 sudo pip install virtualenv
-virtualenv --system-site-packages -p python3 ~/flexget/
-cd ~/flexget/
+virtualenv --system-site-packages -p python3 /etc/flexget/
+cd /etc/flexget/
 bin/pip install flexget
-source ~/flexget/bin/activate
+source /etc/flexget/bin/activate
 pip install subliminal>=2.0
 pip install transmissionrpc
 pip install transmissionrpc --upgrade
-wget https://rawgit.com/tarzasai/.flexget/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
+wget https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py -P /etc/flexget/plugins/
 curl -O https://rawgit.com/zilexa/flexget_config/master/config.yml
 curl -O https://rawgit.com/zilexa/flexget_config/master/secrets.yml
-sed -i "s/TraktUsername/$TraktUsername/g" /home/osmc/flexget/secrets.yml
-sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
-sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
-sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' /home/osmc/flexget/secrets.yml
+sed -i "s/TraktUsername/$TraktUsername/g" /etc/flexget/secrets.yml
+sed -i "s/TransmissionUser/$TransmissionUser/g" /etc/flexget/secrets.yml
+sed -i "s/TransmissionPw/$TransmissionPw/g" /etc/flexget/secrets.yml
+sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' /etc/flexget/secrets.yml
 fi
 
 # Run FLEXGET at startup
@@ -169,18 +163,16 @@ After=network.target
 Type=simple
 User=osmc
 UMask=000
-WorkingDirectory=/home/osmc/flexget
-ExecStart=/home/osmc/flexget/bin/flexget daemon start --autoreload-config
-ExecStop=/home/osmc/flexget/bin/flexget daemon stop
-ExecReload=/home/osmc/flexget/bin/flexget daemon reload
+WorkingDirectory=/etc/flexget
+ExecStart=/etc/flexget/bin/flexget daemon start --autoreload-config
+ExecStop=/etc/flexget/bin/flexget daemon stop
+ExecReload=/etc/flexget/bin/flexget daemon reload
 [Install]
 WantedBy=multi-user.target
 EOF
 
 sudo chmod 755 /lib/systemd/system/flexget.service
 sudo systemctl enable flexget
-sudo -s
-echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
 exit
-/home/osmc/flexget/bin/flexget trakt auth $TraktUsername
+/etc/flexget/bin/flexget trakt auth $TraktUsername
 fi
