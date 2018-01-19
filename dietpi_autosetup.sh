@@ -18,7 +18,7 @@
 # Please select which tasks to perform and don't forget to fill in the user-specific settings in the second part.
 # Tasks to perform
 DynamicDNS=0 #schedules your Dynamic DNS update URL to be called every 4 hrs.
-Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
+Transmission=1 #configures Transmission, needs to be installed first via DietPi
 FlexGet=1 #installs Flexget
 OpenVPN=1 #simply installs OpenVPN, nothing else
 Spotify=0 # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
@@ -45,7 +45,7 @@ SpotifyDeviceName=YourDeviceName # pick a name, it will show up in the Spotify a
 if [ "$DynamicDNS" = "1" ] ; then
 # Reach your device via an easy URL when you are not at home (via freedns.afraid.org)
 line="0 */4 * * * curl -s $dyndnsurl"
-(crontab -u osmc -l; echo "$line" ) | crontab -u osmc -
+(crontab -u root -l; echo "$line" ) | crontab -u root -
 ECHO "DynamicDNS has been set"
 fi
 
@@ -54,14 +54,12 @@ fi
 # Configure Transmission and set it to send finished downloads to Kodi library
 if [ "$Transmission" = "1" ] ; then
 sudo service transmission stop
-cd /home/osmc/.config/transmission-daemon
+cd /etc/transmission-daemon
 curl -O https://rawgit.com/zilexa/transmission/master/settings.json
-sed -i "s/osmc/$TransmissionUser/g" /home/osmc/.config/transmission-daemon/settings.json
-sed -i "s/OSMC/$TransmissionPw/g" /home/osmc/.config/transmission-daemon/settings.json
-sed -i 's|MediaFolder|'$MediaFolder'|g' /home/osmc/.config/transmission-daemon/settings.json
+sed -i "s/osmc/$TransmissionUser/g" /etc/transmission-daemon/settings.json
+sed -i "s/OSMC/$TransmissionPw/g" /etc/transmission-daemon/settings.json
+sed -i 's|MediaFolder|'$MediaFolder'|g' /etc/.config/transmission-daemon/settings.json
 sudo chmod 755 settings.json
-sudo chmod 755 scantokodi.sh
-sudo chmod +x scantokodi.sh
 sudo service transmission start
 fi
 
@@ -89,9 +87,6 @@ sudo sed -i "s/#BITRATE=\"160\"/BITRATE=\"320\"/g" /etc/default/raspotify
 sudo sed -i "s/#DEVICE_NAME=\"raspotify\"/DEVICE_NAME=\"$SpotifyDeviceName\"/g" /etc/default/raspotify
 sudo systemctl restart raspotify
 
-# Add the service to MyOSMC so you can easily start/stop it in Kodi with your TV remote
-sudo -s
-echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
 exit
 fi
 
@@ -107,12 +102,12 @@ sudo apt-get install -y syncthing
 # Run SyncThing at startup
 sudo bash -c 'cat > /lib/systemd/system/syncthing.service' << EOF
 [Unit]
-Description=Syncthing - OSMC
+Description=Syncthing
 Documentation=http://docs.syncthing.net/
 After=network.target
 Wants=syncthing-inotify@.service
 [Service]
-User=osmc
+User=root
 Nice=7
 Environment=STNORESTART=yes
 ExecStart=/usr/bin/syncthing -no-browser -logflags=0
@@ -127,9 +122,6 @@ sudo chmod 755 /lib/systemd/system/syncthing.service
 sudo chmod a+u /lib/systemd/system/syncthing.service
 sudo systemctl daemon-reload
 sudo systemctl enable syncthing.service
-sudo -s
-echo -e "syncthing\syncthing.service" > /etc/osmc/apps.d/syncthing
-su - osmc
 fi
 
 
@@ -161,7 +153,7 @@ Description=Flexget Daemon
 After=network.target
 [Service]
 Type=simple
-User=osmc
+User=root
 UMask=000
 WorkingDirectory=/etc/flexget
 ExecStart=/etc/flexget/bin/flexget daemon start --autoreload-config
