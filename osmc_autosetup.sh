@@ -202,12 +202,10 @@ fi
 # install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
-sudo apt-get install python3
-sudo apt-get install -y python3-libtorrent
-sudo python3 get-pip.py
+sudo python get-pip.py
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
-virtualenv --system-site-packages -p python3 ~/flexget/
+virtualenv --system-site-packages -p python ~/flexget/
 cd ~/flexget/
 bin/pip install flexget
 source ~/flexget/bin/activate
