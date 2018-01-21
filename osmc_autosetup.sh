@@ -16,14 +16,13 @@
 ##########################################
 # Please select which tasks to perform and don't forget to fill in the user-specific settings in the second part.
 # Tasks to perform
-DynamicDNS=1 #schedules your Dynamic DNS update URL to be called every 4 hrs.
-Transmission=1 #configures Transmission, needs to be installed first via MyOSMC
-FlexGet=1 #installs Flexget
-OpenVPN=1 #simply installs OpenVPN, nothing else
+DynamicDNS=0 #schedules your Dynamic DNS update URL to be called every 4 hrs.
+Transmission=0 #configures Transmission, needs to be installed first via MyOSMC
+FlexGet=0 #installs Flexget
 Spotify=0 # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
-SyncThing=1 # installs SyncThing
-AddMediaToKodi=1 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
-DisableLEDS=1 #RPI2 or RPI3 only
+SyncThing=0 # installs SyncThing
+AddMediaToKodi=0 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
+DisableLEDS=0 #RPI2 or RPI3 only
 
 
 ##########################################
@@ -127,14 +126,6 @@ fi
 
 
 
-# install OpenVPN
-if [ "$OpenVPN" = "1" ] ; then
-sudo apt-get update
-sudo apt-get --yes --force-yes install openvpn
-fi
-
-
-
 # install Spotify Connect by installing Raspotify, which is a wrapper for LibreSpot
 if [ "$Spotify" = "1" ] ; then
 sudo apt-get -y install apt-transport-https
@@ -200,7 +191,8 @@ fi
 # install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
-sudo python3 get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3.5 get-pip.py
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
 virtualenv --system-site-packages -p python3 ~/flexget/
