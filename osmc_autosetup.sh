@@ -69,12 +69,12 @@ sudo bash -c 'cat > /home/osmc/.kodi/userdata/sources.xml' << EOF
         <default pathversion="1"></default>
         <source>
             <name>TV Shows</name>
-            <path pathversion="1">$MediaFolder/TVshows/</path>
+            <path pathversion="1">/$MediaFolder/TVshows/</path>
             <allowsharing>true</allowsharing>
         </source>
         <source>
             <name>Movies</name>
-            <path pathversion="1">$MediaFolder/Movies/</path>
+            <path pathversion="1">/$MediaFolder/Movies/</path>
             <allowsharing>true</allowsharing>
         </source>
     </video>
@@ -82,7 +82,7 @@ sudo bash -c 'cat > /home/osmc/.kodi/userdata/sources.xml' << EOF
         <default pathversion="1"></default>
         <source>
             <name>Music</name>
-            <path pathversion="1">$MediaFolder/Music/</path>
+            <path pathversion="1">/$MediaFolder/Music/</path>
             <allowsharing>true</allowsharing>
         </source>
     </music>
@@ -90,7 +90,7 @@ sudo bash -c 'cat > /home/osmc/.kodi/userdata/sources.xml' << EOF
         <default pathversion="1"></default>
         <source>
             <name>Pictures</name>
-            <path pathversion="1">$MediaFolder/Pictures/</path>
+            <path pathversion="1">/$MediaFolder/Pictures/</path>
             <allowsharing>true</allowsharing>
         </source>
     </pictures>
