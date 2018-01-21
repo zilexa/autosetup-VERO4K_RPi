@@ -33,7 +33,7 @@ DisableLEDS=0 #RPI2 or RPI3 only
 #User-specific settings
 MediaFolder='media/ChilleTV'
 dyndnsurl="http://sync.afraid.org/u/your-url-id/"
-TraktUsername=yourtraktusername
+TraktUser=yourtraktusername
 TransmissionUser=desiredusername
 TransmissionPw=desiredpw
 SpotifyDeviceName=YourDeviceName # pick a name, it will show up in the Spotify app on your phone or computer.
@@ -205,7 +205,7 @@ pip install transmissionrpc --upgrade
 wget https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
 curl -O https://rawgit.com/zilexa/flexget_config/master/config.yml
 curl -O https://rawgit.com/zilexa/flexget_config/master/secrets.yml
-sed -i "s/TraktUsername/$TraktUsername/g" /home/osmc/flexget/secrets.yml
+sed -i "s/TraktUser/$TraktUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
 sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' /home/osmc/flexget/secrets.yml
