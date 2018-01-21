@@ -122,8 +122,6 @@ sed -i "s/osmc/$TransmissionUser/g" /home/osmc/.config/transmission-daemon/setti
 sed -i "s/OSMC/$TransmissionPw/g" /home/osmc/.config/transmission-daemon/settings.json
 sed -i 's|MediaFolder|'$MediaFolder'|g' /home/osmc/.config/transmission-daemon/settings.json
 sudo chmod 755 settings.json
-sudo chmod 755 scantokodi.sh
-sudo chmod +x scantokodi.sh
 sudo service transmission start
 fi
 
@@ -202,17 +200,17 @@ fi
 # install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
-sudo python get-pip.py
+sudo python3 get-pip.py
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
-virtualenv --system-site-packages -p python ~/flexget/
+virtualenv --system-site-packages -p python3 ~/flexget/
 cd ~/flexget/
 bin/pip install flexget
 source ~/flexget/bin/activate
 pip install subliminal>=2.0
 pip install transmissionrpc
 pip install transmissionrpc --upgrade
-wget https://rawgit.com/tarzasai/.flexget/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
+wget https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
 curl -O https://rawgit.com/zilexa/flexget_config/master/config.yml
 curl -O https://rawgit.com/zilexa/flexget_config/master/secrets.yml
 sed -i "s/TraktUsername/$TraktUsername/g" /home/osmc/flexget/secrets.yml
