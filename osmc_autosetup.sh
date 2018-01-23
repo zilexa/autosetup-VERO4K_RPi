@@ -141,9 +141,7 @@ sudo sed -i "s/#DEVICE_NAME=\"raspotify\"/DEVICE_NAME=\"$SpotifyDeviceName\"/g" 
 sudo systemctl restart raspotify
 
 # Add the service to MyOSMC so you can easily start/stop it in Kodi with your TV remote
-sudo -s
-echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
-exit
+sudo echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
 fi
 
 
@@ -181,9 +179,7 @@ sudo chmod 755 /lib/systemd/system/syncthing.service
 sudo chmod a+u /lib/systemd/system/syncthing.service
 sudo systemctl daemon-reload
 sudo systemctl enable syncthing.service
-sudo -s
-echo -e "syncthing\syncthing.service" > /etc/osmc/apps.d/syncthing
-su - osmc
+sudo echo -e "syncthing\syncthing.service" > /etc/osmc/apps.d/syncthing
 fi
 
 
@@ -233,8 +229,6 @@ EOF
 
 sudo chmod 755 /lib/systemd/system/flexget.service
 sudo systemctl enable flexget
-sudo -s
-echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
-exit
+sudo echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
 /home/osmc/flexget/bin/flexget trakt auth $TraktUsername
 fi
