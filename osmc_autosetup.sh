@@ -202,9 +202,9 @@ source ~/flexget/bin/activate
 pip install subliminal>=2.0
 pip install transmissionrpc
 pip install transmissionrpc --upgrade
-wget https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py -P /home/osmc/flexget/plugins/
-curl -O https://rawgit.com/zilexa/flexget_config/master/config.yml
-curl -O https://rawgit.com/zilexa/flexget_config/master/secrets.yml
+wget -N -O /home/osmc/flexget/plugins/log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
+wget -N -O config.yml https://rawgit.com/zilexa/flexget_config/master/config.yml
+wget -N -O secrets.yml https://rawgit.com/zilexa/flexget_config/master/secrets.yml
 sed -i "s/TraktUser/$TraktUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
