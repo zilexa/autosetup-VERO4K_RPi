@@ -192,19 +192,19 @@ fi
 if [ "$FlexGet" = "1" ] ; then
 cd /home/osmc
 wget https://bootstrap.pypa.io/get-pip.py
-sudo python3.5 get-pip.py
+sudo python get-pip.py
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
-virtualenv --system-site-packages -p python3 ~/flexget/
+virtualenv --system-site-packages -p python ~/flexget/
 cd ~/flexget/
 bin/pip install flexget
 source ~/flexget/bin/activate
 pip install subliminal>=2.0
 pip install transmissionrpc
 pip install transmissionrpc --upgrade
-wget -N -O /home/osmc/flexget/plugins/log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
-wget -N -O config.yml https://rawgit.com/zilexa/flexget_config/master/config.yml
-wget -N -O secrets.yml https://rawgit.com/zilexa/flexget_config/master/secrets.yml
+wget -O /home/osmc/flexget/plugins/log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
+wget -O config.yml https://rawgit.com/zilexa/flexget_config/master/config.yml
+wget -O secrets.yml https://rawgit.com/zilexa/flexget_config/master/secrets.yml
 sed -i "s/TraktUser/$TraktUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
 sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
