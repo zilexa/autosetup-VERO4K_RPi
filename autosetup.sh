@@ -16,13 +16,13 @@
 ##########################################
 # Please select which tasks to perform and don't forget to fill in the user-specific settings in the second part.
 # Tasks to perform
-DynamicDNS=0 #schedules your Dynamic DNS update URL to be called every 4 hrs.
-Transmission=0 #configures Transmission, needs to be installed first via MyOSMC
-FlexGet=0 #installs Flexget
-Spotify=0 # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
-SyncThing=0 # installs SyncThing
-AddMediaToKodi=0 #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
-DisableLEDS=0 #RPI2 or RPI3 only
+DynamicDNS=0   #schedules your Dynamic DNS update URL to be called every 4 hrs.
+Transmission=0   #configures Transmission, needs to be installed first via MyOSMC
+FlexGet=1 #installs Flexget
+Spotify=0    # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
+SyncThing=0    # installs SyncThing
+AddMediaToKodi=0    #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
+DisableLEDS=0    #RPI2 or RPI3 only
 
 
 ##########################################
@@ -31,12 +31,13 @@ DisableLEDS=0 #RPI2 or RPI3 only
 ##                                      ##
 ##########################################
 #User-specific settings
-MediaFolder='media/ChilleTV'
+HomeFolder='/home/osmc'    #make sure you enter your correct homefolder here!
+MediaFolder='/media/yourusbdrive'    #enter the path+root of your USB drive or location of your NFS mount ('/mnt/name') 
 dyndnsurl="http://sync.afraid.org/u/your-url-id/"
 TraktUser=yourtraktusername
 TransmissionUser=desiredusername
 TransmissionPw=desiredpw
-SpotifyDeviceName=YourDeviceName # pick a name, it will show up in the Spotify app on your phone or computer.
+SpotifyDeviceName=YourDeviceName   # pick a name, it will show up in the Spotify app on your phone or computer.
 
 
 ##########################################
@@ -46,7 +47,7 @@ SpotifyDeviceName=YourDeviceName # pick a name, it will show up in the Spotify a
 ##########################################
 # Disable LEDs on RPi2 or RPi3 (Power and Activity LEDS, network leds cannot be disabled)
 if [ "DisableLEDS" = "1" ] ; then
-sudo bash -c 'cat >> /home/osmc/.kodi/userdata/sources.xml' << EOF
+sudo bash -c 'cat >> $HomeFolder/.kodi/userdata/sources.xml' << EOF
 # Disable the ACT LED.
 dtparam=act_led_trigger=none
 dtparam=act_led_activelow=off
@@ -60,7 +61,7 @@ fi
 
 # Add media to Kodi
 if [ "$AddMediaToKodi" = "1" ] ; then
-sudo bash -c 'cat > /home/osmc/.kodi/userdata/sources.xml' << EOF
+sudo bash -c 'cat > $HomeFolder/.kodi/userdata/sources.xml' << EOF
 <sources>
     <programs>
         <default pathversion="1"></default>
@@ -69,12 +70,12 @@ sudo bash -c 'cat > /home/osmc/.kodi/userdata/sources.xml' << EOF
         <default pathversion="1"></default>
         <source>
             <name>TV Shows</name>
-            <path pathversion="1">/$MediaFolder/TVshows/</path>
+            <path pathversion="1">$MediaFolder/TVshows/</path>
             <allowsharing>true</allowsharing>
         </source>
         <source>
             <name>Movies</name>
-            <path pathversion="1">/$MediaFolder/Movies/</path>
+            <path pathversion="1">$MediaFolder/Movies/</path>
             <allowsharing>true</allowsharing>
         </source>
     </video>
@@ -82,7 +83,7 @@ sudo bash -c 'cat > /home/osmc/.kodi/userdata/sources.xml' << EOF
         <default pathversion="1"></default>
         <source>
             <name>Music</name>
-            <path pathversion="1">/$MediaFolder/Music/</path>
+            <path pathversion="1">$MediaFolder/Music/</path>
             <allowsharing>true</allowsharing>
         </source>
     </music>
@@ -90,7 +91,7 @@ sudo bash -c 'cat > /home/osmc/.kodi/userdata/sources.xml' << EOF
         <default pathversion="1"></default>
         <source>
             <name>Pictures</name>
-            <path pathversion="1">/$MediaFolder/Pictures/</path>
+            <path pathversion="1">$MediaFolder/Pictures/</path>
             <allowsharing>true</allowsharing>
         </source>
     </pictures>
@@ -115,11 +116,11 @@ fi
 # Configure Transmission and set it to send finished downloads to Kodi library
 if [ "$Transmission" = "1" ] ; then
 sudo service transmission stop
-cd /home/osmc/.config/transmission-daemon
+cd $HomeFolder/.config/transmission-daemon
 curl -O https://rawgit.com/zilexa/transmission/master/settings.json
-sed -i "s/osmc/$TransmissionUser/g" /home/osmc/.config/transmission-daemon/settings.json
-sed -i "s/OSMC/$TransmissionPw/g" /home/osmc/.config/transmission-daemon/settings.json
-sed -i 's|MediaFolder|'$MediaFolder'|g' /home/osmc/.config/transmission-daemon/settings.json
+sed -i "s/osmc/$TransmissionUser/g" $HomeFolder/.config/transmission-daemon/settings.json
+sed -i "s/OSMC/$TransmissionPw/g" $HomeFolder/.config/transmission-daemon/settings.json
+sed -i 's|MediaFolder|'$MediaFolder'|g' $HomeFolder/.config/transmission-daemon/settings.json
 sudo chmod 755 settings.json
 sudo service transmission start
 fi
@@ -186,25 +187,27 @@ fi
 
 # install FlEXGET with magnet, subtitles and transmission support
 if [ "$FlexGet" = "1" ] ; then
-cd /home/osmc
-wget https://bootstrap.pypa.io/get-pip.py
-sudo python get-pip.py
+cd $HomeFolder/
+sudo apt-get -y install python3
+sudo apt-get -y install python3-pip
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
-virtualenv --system-site-packages -p python ~/flexget/
-cd ~/flexget/
+virtualenv --system-site-packages -p python3 $HomeFolder/flexget/
+cd $HomeFolder/flexget/
 bin/pip install flexget
 source ~/flexget/bin/activate
 pip install subliminal>=2.0
 pip install transmissionrpc
 pip install transmissionrpc --upgrade
-wget -O /home/osmc/flexget/plugins/log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
 wget -O config.yml https://rawgit.com/zilexa/flexget_config/master/config.yml
 wget -O secrets.yml https://rawgit.com/zilexa/flexget_config/master/secrets.yml
-sed -i "s/TraktUser/$TraktUser/g" /home/osmc/flexget/secrets.yml
-sed -i "s/TransmissionUser/$TransmissionUser/g" /home/osmc/flexget/secrets.yml
-sed -i "s/TransmissionPw/$TransmissionPw/g" /home/osmc/flexget/secrets.yml
-sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' /home/osmc/flexget/secrets.yml
+sed -i "s/TraktUser/$TraktUser/g" $HomeFolder/flexget/secrets.yml
+sed -i "s/TransmissionUser/$TransmissionUser/g" $HomeFolder/flexget/secrets.yml
+sed -i "s/TransmissionPw/$TransmissionPw/g" $HomeFolder/flexget/secrets.yml
+sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' $HomeFolder/flexget/secrets.yml
+sudo mkdir $HomeFolder/flexget/plugins/
+cd $HomeFolder/flexget/plugins/
+wget -O log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
 fi
 
 # Run FLEXGET at startup
@@ -218,10 +221,10 @@ After=network.target
 Type=simple
 User=osmc
 UMask=000
-WorkingDirectory=/home/osmc/flexget
-ExecStart=/home/osmc/flexget/bin/flexget daemon start --autoreload-config
-ExecStop=/home/osmc/flexget/bin/flexget daemon stop
-ExecReload=/home/osmc/flexget/bin/flexget daemon reload
+WorkingDirectory=$HomeFolder/flexget
+ExecStart=$HomeFolder/flexget/bin/flexget daemon start --autoreload-config
+ExecStop=/$HomeFolder/flexget/bin/flexget daemon stop
+ExecReload=$HomeFolder/flexget/bin/flexget daemon reload
 
 [Install]
 WantedBy=multi-user.target
@@ -230,5 +233,6 @@ EOF
 sudo chmod 755 /lib/systemd/system/flexget.service
 sudo systemctl enable flexget
 sudo echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
-/home/osmc/flexget/bin/flexget trakt auth $TraktUsername
+exit
+$HomeFolder/flexget/bin/flexget trakt auth $TraktUsername
 fi
