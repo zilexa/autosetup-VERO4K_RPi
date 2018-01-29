@@ -32,10 +32,10 @@ Requirements:
 1. Download autosetup.sh by copy pasting this command (you can paste by simply right-clicking in the black Putty window):
 `wget https://rawgit.com/zilexa/autosetup/master/autosetup.sh`
 2. See the FEATURES and REQUIRED USER-SPECIFIC SETTINGS below. Edit the file to select the features you need and fill in the required details. Run this command to edit the file:
-`sudo nano autosetup.sh`
+`nano autosetup.sh`
 (save the file with CTRL+O, exit the editor with CTRL+X)
-3. Now run the script:
-`sudo bash autosetup.sh`
+3. Now run the script, without sudo(!):
+`bash autosetup.sh`
 4. A lot will happen now, just leave it be. When it's done, all that's left is for you to authorize the device to access your trakt account. This process will be triggered, just follow the instructions: go to trakt.tv/activate and fill in the temporary password. If you are too late, you can trigger this process yourself by running the following command:
 /home/osmc/flexget/bin/flexget trakt auth yourtraktusername
 5. Now you can enable Flexget with this command:
