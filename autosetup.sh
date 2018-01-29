@@ -18,8 +18,9 @@
 # Tasks to perform
 DynamicDNS=0   #schedules your Dynamic DNS update URL to be called every 4 hrs.
 Transmission=0   #configures Transmission, needs to be installed first via MyOSMC
-FlexGet=1 #installs Flexget
-Spotify=0    # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
+FlexGet=0 #installs Flexget
+SpotifyRPi=0    # installs Spotify Connect for RASPBERRY PI (Premium users only, )..
+SpotifyVero=0    # installs Spotify Connect for VERO devices (Premium users only, )..
 SyncThing=0    # installs SyncThing
 AddMediaToKodi=0    #Adds the path to your Movies/TV Shows/Music/Pictures to the Kodi library! Kodi>Settings>Video>Library "update on startup", reboot and your library will be filled!
 DisableLEDS=0    #RPI2 or RPI3 only
@@ -127,8 +128,8 @@ fi
 
 
 
-# install Spotify Connect by installing Raspotify, which is a wrapper for LibreSpot
-if [ "$Spotify" = "1" ] ; then
+# install Spotify Connect by installing Raspotify for RPi devices
+if [ "$SpotifyRPi" = "1" ] ; then
 sudo apt-get -y install apt-transport-https
 curl -sSL https://dtcooper.github.io/raspotify/key.asc | sudo apt-key add -v -
 echo 'deb https://dtcooper.github.io/raspotify jessie main' | sudo tee /etc/apt/sources.list.d/raspotify.list
@@ -140,9 +141,13 @@ sudo apt-get -y install raspotify
 sudo sed -i "s/#BITRATE=\"160\"/BITRATE=\"320\"/g" /etc/default/raspotify
 sudo sed -i "s/#DEVICE_NAME=\"raspotify\"/DEVICE_NAME=\"$SpotifyDeviceName\"/g" /etc/default/raspotify
 sudo systemctl restart raspotify
+fi 
 
-# Add the service to MyOSMC so you can easily start/stop it in Kodi with your TV remote
-sudo echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
+# install Spotify Connect by installing Raspotify for VERO devices
+if [ "$SpotifyVero" = "1" ] ; then
+wget https://dtcooper.github.io/raspotify/raspotify-latest.deb
+sudo dpkg -i /home/osmc/raspotify-latest.deb
+sudo apt-get install -f 
 fi
 
 
@@ -175,7 +180,6 @@ RestartForceExitStatus=3 4
 WantedBy=multi-user.target
 
 EOF
-
 sudo chmod 755 /lib/systemd/system/syncthing.service
 sudo chmod a+u /lib/systemd/system/syncthing.service
 sudo systemctl daemon-reload
@@ -232,7 +236,23 @@ EOF
 
 sudo chmod 755 /lib/systemd/system/flexget.service
 sudo systemctl enable flexget
-sudo echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
-exit
 $HomeFolder/flexget/bin/flexget trakt auth $TraktUsername
 fi
+
+
+
+sudo -s
+if [ "$SpotifyRPi" = "1" ] ; then
+# Add the service to MyOSMC so you can easily start/stop it in Kodi with your TV remote
+echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
+fi
+
+if [ "$SpotifyVero" = "1" ] ; then
+# Add the service to MyOSMC so you can easily start/stop it in Kodi with your TV remote
+echo -e "raspotify\raspotify.service" > /etc/osmc/apps.d/spotify-connect
+fi
+
+if [ "$FlexGet" = "1" ] ; then
+echo -e "flexget\flexget.service" > /etc/osmc/apps.d/flexget
+fi
+exit
