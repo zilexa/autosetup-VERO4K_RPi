@@ -194,6 +194,8 @@ if [ "$FlexGet" = "1" ] ; then
 cd $HomeFolder/
 sudo apt-get -y install python3
 sudo apt-get -y install python3-pip
+sudo apt-get -y install 
+sudo apt-get install -y python3-libtorrent
 sudo pip install --upgrade setuptools
 sudo pip install virtualenv
 virtualenv --system-site-packages -p python3 $HomeFolder/flexget/
