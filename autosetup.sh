@@ -213,7 +213,7 @@ sed -i "s/TransmissionPw/$TransmissionPw/g" $HomeFolder/flexget/secrets.yml
 sed -i 's|media/RootOfMedia/|'$MediaFolder/'|g' $HomeFolder/flexget/secrets.yml
 sudo mkdir $HomeFolder/flexget/plugins/
 cd $HomeFolder/flexget/plugins/
-wget -O log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
+sudo wget -O log_filter.py https://rawgit.com/zilexa/flexget_config/master/plugins/log_filter.py
 fi
 
 # Run FLEXGET at startup
