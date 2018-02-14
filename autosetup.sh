@@ -196,15 +196,15 @@ sudo apt-get -y install python3
 sudo apt-get -y install python3-pip
 sudo apt-get -y install 
 sudo apt-get install -y python3-libtorrent
-sudo pip install --upgrade setuptools
-sudo pip install virtualenv
+sudo pip3 install --upgrade setuptools
+sudo pip3 install virtualenv
 virtualenv --system-site-packages -p python3 $HomeFolder/flexget/
 cd $HomeFolder/flexget/
 bin/pip install flexget
 source ~/flexget/bin/activate
-pip install subliminal>=2.0
-pip install transmissionrpc
-pip install transmissionrpc --upgrade
+pip3 install subliminal>=2.0
+pip3 install transmissionrpc
+pip3 install transmissionrpc --upgrade
 wget -O config.yml https://rawgit.com/zilexa/flexget_config/master/config.yml
 wget -O secrets.yml https://rawgit.com/zilexa/flexget_config/master/secrets.yml
 sed -i "s/TraktUser/$TraktUser/g" $HomeFolder/flexget/secrets.yml
