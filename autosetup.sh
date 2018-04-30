@@ -109,7 +109,7 @@ if [ "$DynamicDNS" = "1" ] ; then
 # Reach your device via an easy URL when you are not at home (via freedns.afraid.org)
 line="0 */4 * * * curl -s $dyndnsurl"
 (crontab -u osmc -l; echo "$line" ) | crontab -u osmc -
-ECHO "DynamicDNS has been set"
+echo "DynamicDNS has been set"
 fi
 
 
@@ -238,7 +238,7 @@ EOF
 
 sudo chmod 755 /lib/systemd/system/flexget.service
 sudo systemctl enable flexget
-$HomeFolder/flexget/bin/flexget trakt auth $TraktUsername
+$HomeFolder/flexget/bin/flexget trakt auth $TraktUser
 fi
 
 
