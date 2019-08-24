@@ -34,11 +34,11 @@ DisableLEDS=0    #RPI2 or RPI3 only
 #User-specific settings
 HomeFolder='/home/osmc'    #make sure you enter your correct homefolder here!
 MediaFolder='/media/yourusbdrive'    #enter the path+root of your USB drive or location of your NFS mount ('/mnt/name') 
-dyndnsurl="http://sync.afraid.org/u/your-url-id/"
-TraktUser=yourtraktusername
-TransmissionUser=desiredusername
-TransmissionPw=desiredpw
-SpotifyDeviceName=YourDeviceName   # pick a name, it will show up in the Spotify app on your phone or computer.
+dyndnsurl='http://sync.afraid.org/u/your-url-id/'
+TraktUser='yourtraktusername'
+TransmissionUser='desiredusername'
+TransmissionPw='desiredpw'
+SpotifyDeviceName='YourDeviceName'   # pick a name, it will show up in the Spotify app on your phone or computer.
 
 
 ##########################################
@@ -48,7 +48,7 @@ SpotifyDeviceName=YourDeviceName   # pick a name, it will show up in the Spotify
 ##########################################
 # Disable LEDs on RPi2 or RPi3 (Power and Activity LEDS, network leds cannot be disabled)
 if [ "DisableLEDS" = "1" ] ; then
-sudo bash -c 'cat >> $HomeFolder/.kodi/userdata/sources.xml' << EOF
+sudo bash -c "cat >> $HomeFolder/.kodi/userdata/sources.xml" << EOF
 # Disable the ACT LED.
 dtparam=act_led_trigger=none
 dtparam=act_led_activelow=off
@@ -62,7 +62,7 @@ fi
 
 # Add media to Kodi
 if [ "$AddMediaToKodi" = "1" ] ; then
-sudo bash -c 'cat > $HomeFolder/.kodi/userdata/sources.xml' << EOF
+sudo bash -c "cat > $HomeFolder/.kodi/userdata/sources.xml" << EOF
 <sources>
     <programs>
         <default pathversion="1"></default>
@@ -116,14 +116,14 @@ fi
 
 # Configure Transmission and set it to send finished downloads to Kodi library
 if [ "$Transmission" = "1" ] ; then
-sudo service transmission stop
+sudo systemctl stop transmission
 cd $HomeFolder/.config/transmission-daemon
 curl -O https://rawgit.com/zilexa/transmission/master/settings.json
 sed -i "s/osmc/$TransmissionUser/g" $HomeFolder/.config/transmission-daemon/settings.json
 sed -i "s/OSMC/$TransmissionPw/g" $HomeFolder/.config/transmission-daemon/settings.json
 sed -i 's|MediaFolder|'$MediaFolder'|g' $HomeFolder/.config/transmission-daemon/settings.json
 sudo chmod 755 settings.json
-sudo service transmission start
+sudo systemctl start transmission
 fi
 
 
@@ -153,7 +153,7 @@ fi
 
 
 # install SyncThing
-if [ "$SycnThing" = "1" ] ; then
+if [ "$SyncThing" = "1" ] ; then
 sudo curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
 echo "deb http://apt.syncthing.net/ syncthing release" | sudo tee /etc/apt/sources.list.d/syncthing.list
 sudo apt-get update
@@ -237,7 +237,7 @@ EOF
 
 sudo chmod 755 /lib/systemd/system/flexget.service
 sudo systemctl enable flexget
-$HomeFolder/flexget/bin/flexget trakt auth $TraktUsername
+$HomeFolder/flexget/bin/flexget trakt auth $TraktUser
 fi
 
 
