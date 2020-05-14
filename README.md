@@ -1,4 +1,4 @@
-# autosetup
+# autosetup [DEPRICATED]
 Automatically installs and configures a Vero 4K or RasberryPi device running OSMC or Debian to get a "Netflix-like" experience!
 It uses OSMC with Kodi for playback. No streaming addons are being used. 
 
