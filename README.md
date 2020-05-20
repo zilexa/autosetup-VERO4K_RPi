@@ -1,4 +1,6 @@
-# autosetup [DEPRICATED]
+20/05/2020 UPDATE: I will not update this again. Still use Vero4k but purely as client for playback using the default OSMC with Jellyfin add-on to connect to my library. 
+
+# autosetup
 Automatically installs and configures a Vero 4K or RasberryPi device running OSMC or Debian to get a "Netflix-like" experience!
 It uses OSMC with Kodi for playback. No streaming addons are being used. 
 
