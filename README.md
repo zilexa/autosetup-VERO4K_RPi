@@ -1,4 +1,7 @@
-20/05/2020 UPDATE: I will not update this again. Still use Vero4k but purely as client for playback using the default OSMC with Jellyfin add-on to connect to my library. 
+20/05/2020 UPDATE: I will not update this again. I sold my Vero4K as it wasn't that stable and updates did not improve. Also none of the promises of the developer (couple years ago) came through. 
+Switching to an nVidia ShieldTV 2019 (tube model) was the best choice ever: rock-stable, much better picture quality (best upscaling available to consumers). 
+Also moved away from Kodi, I now use Jellyfin only: https://github.com/zilexa/Homeserver
+
 
 # autosetup
 Automatically installs and configures a Vero 4K or RasberryPi device running OSMC or Debian to get a "Netflix-like" experience!
