@@ -47,7 +47,7 @@ SpotifyDeviceName=YourDeviceName   # pick a name, it will show up in the Spotify
 ##                                      ##
 ##########################################
 # Disable LEDs on RPi2 or RPi3 (Power and Activity LEDS, network leds cannot be disabled)
-if [ "DisableLEDS" = "1" ] ; then
+if [ "$DisableLEDS" = "1" ] ; then
 sudo bash -c 'cat >> $HomeFolder/.kodi/userdata/sources.xml' << EOF
 # Disable the ACT LED.
 dtparam=act_led_trigger=none
